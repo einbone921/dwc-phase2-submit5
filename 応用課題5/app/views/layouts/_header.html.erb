@@ -1,11 +1,7 @@
 <header>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <!--<div class="navbar-brand" href="/">-->
-      <!--  <span>-->
-      <!--   <%= link_to 'Bookers', root_path, class: 'text-light' %>-->
-      <!--  </span>-->
-      <!--</div>-->
+      <%= link_to 'Bookers', root_path, class: 'text-light' %>
       <a class="navbar-brand" href="/"><span>Bookers</span></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -27,4 +23,16 @@
       </div>
     </div>
   </nav>
+  <div class="search-container">
+    <% if user_signed_in? %>
+      <div class="search-form">
+        <%= form_with url: search_path, method: :get, local: true do |f|  %>
+          <%= f.text_field :word %>
+          <%= f.select :range, [["User","1"], ["Book","2"]] %>
+          <%= f.select :search, [["前方一致","forward_match"], ["後方一致","backward_match"],["完全一致","perfect_match"], ["部分一致","partial_match"]] %>
+          <%= f.submit "検索" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </header>
